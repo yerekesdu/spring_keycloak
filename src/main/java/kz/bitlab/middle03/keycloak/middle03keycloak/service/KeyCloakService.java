@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -54,6 +56,8 @@ public class KeyCloakService {
     @Value("${keycloak.grant-type}")
     private String keycloakGrantType;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(KeyCloakService.class);
+
     public UserRepresentation createUser(UserCreateDto user) {
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setEmail(user.getEmail());
@@ -75,7 +79,7 @@ public class KeyCloakService {
                 .create(userRepresentation);
 
         if (response.getStatus() != HttpStatus.CREATED.value()) {
-            log.error("Error on creating user");
+            LOGGER.error("Error on creating user");
             throw new RuntimeException("Failed to create user");
         }
         List<UserRepresentation> searchUser = keycloak
@@ -103,7 +107,7 @@ public class KeyCloakService {
         Map<String, Object> responseBody = response.getBody();
 
         if(!response.getStatusCode().is2xxSuccessful() || responseBody == null) {
-            log.error("Error on sign in");
+            LOGGER.error("Error on sign in");
             throw new RuntimeException("Failed to sign in");
         }
         return (String) responseBody.get("access_token");
@@ -116,7 +120,7 @@ public class KeyCloakService {
                 .search(userName);
 
         if (users.isEmpty()) {
-            log.error("User not found to change");
+            LOGGER.error("User not found to change");
             throw new RuntimeException("User not found with username " + userName);
         }
 
@@ -132,6 +136,6 @@ public class KeyCloakService {
                 .get(userRepresentation.getId())
                 .resetPassword(credentialRepresentation);
 
-        log.info("Password changed successfully");
+        LOGGER.info("Password changed successfully");
     }
 }
