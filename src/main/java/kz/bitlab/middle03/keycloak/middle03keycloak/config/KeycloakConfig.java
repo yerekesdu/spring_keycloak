@@ -35,7 +35,7 @@ public class KeycloakConfig {
     private String keycloakGrantType;
 
     @Bean
-    public Keycloak keycloak() {
+    public Keycloak keycloakBek() {
         log.info("Creating Keycloak instance");
         return KeycloakBuilder
                 .builder()
