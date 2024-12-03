@@ -1,5 +1,6 @@
 package kz.bitlab.middle03.keycloak.middle03keycloak.api;
 
+import jakarta.validation.Valid;
 import kz.bitlab.middle03.keycloak.middle03keycloak.dto.UserChangePasswordDto;
 import kz.bitlab.middle03.keycloak.middle03keycloak.dto.UserCreateDto;
 import kz.bitlab.middle03.keycloak.middle03keycloak.dto.UserSignInDto;
@@ -37,7 +38,7 @@ public class UserController {
 
     @PostMapping(value = "/change-password")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> changePassword(@RequestBody UserChangePasswordDto userChangePasswordDto) {
+    public ResponseEntity<String> changePassword(@Valid @RequestBody UserChangePasswordDto userChangePasswordDto) {
 
         String currentUserName = UserUtils.getCurrentUserLogin();
         System.out.println("username CURRENT: " + currentUserName);
