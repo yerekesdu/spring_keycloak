@@ -19,7 +19,7 @@ public class ItemController {
     }
 
     @GetMapping(value = "/about")
-    @PreAuthorize("hasAnyRole('USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public String aboutPage() {
         return "This is about page here is " + UserUtils.getCurrentUserFirstName() +
                 " - " + UserUtils.getCurrentLastName();

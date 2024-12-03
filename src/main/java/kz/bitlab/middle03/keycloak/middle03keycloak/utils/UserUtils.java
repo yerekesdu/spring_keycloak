@@ -1,6 +1,9 @@
 package kz.bitlab.middle03.keycloak.middle03keycloak.utils;
 
+import kz.bitlab.middle03.keycloak.middle03keycloak.service.KeyCloakService;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -9,13 +12,16 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 @Slf4j
 public final class UserUtils {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserUtils.class);
+
     public static Jwt getCurrentUser() {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication instanceof JwtAuthenticationToken) {
             return ((JwtAuthenticationToken) authentication).getToken();
         }
-        log.warn("Couldn't get current user");
+        LOGGER.warn("Couldn't get current user");
         return null;
     }
 

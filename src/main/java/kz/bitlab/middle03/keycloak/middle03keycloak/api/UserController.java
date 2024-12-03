@@ -26,8 +26,8 @@ public class UserController {
     @PostMapping(value = "/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createUser(@RequestBody UserCreateDto user) {
-        keyCloakService.createUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        System.out.println("create user endpoint");
+        return new ResponseEntity<>(keyCloakService.createUser(user), HttpStatus.OK);
     }
 
     @PostMapping(value = "/sign-in")

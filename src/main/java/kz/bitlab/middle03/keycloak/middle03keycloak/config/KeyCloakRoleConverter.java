@@ -15,7 +15,6 @@ public class KeyCloakRoleConverter implements Converter<Jwt, AbstractAuthenticat
     @Override
     public AbstractAuthenticationToken convert(Jwt source) {
         Collection<GrantedAuthority> authorityCollection = extractAuthorities(source);
-        System.out.println("authorityCollection: " + authorityCollection);
         return new JwtAuthenticationToken(source, authorityCollection);
     }
 

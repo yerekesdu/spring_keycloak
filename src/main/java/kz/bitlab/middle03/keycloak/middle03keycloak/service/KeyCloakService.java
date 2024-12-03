@@ -2,6 +2,7 @@ package kz.bitlab.middle03.keycloak.middle03keycloak.service;
 
 import kz.bitlab.middle03.keycloak.middle03keycloak.dto.UserCreateDto;
 import kz.bitlab.middle03.keycloak.middle03keycloak.dto.UserSignInDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
